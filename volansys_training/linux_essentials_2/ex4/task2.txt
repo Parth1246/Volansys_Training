@@ -1,0 +1,9 @@
+ans1:
+Spinlocks are not appropriate for single-processor systems because the
+condition that would break a process out of the spinlock can be obtained
+only by executing a different process. If the process is not relinquishing
+the processor, other processes do not get the opportunity to set the
+program condition required for the first process to make progress. In a
+multiprocessor system, other processes execute on other processors and
+thereby modify the program state in order to release the first process
+from the spinlock.

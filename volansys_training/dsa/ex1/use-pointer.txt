@@ -1,0 +1,241 @@
+#first task of ex1 
+
+/* list down various use of pointer */
+
+A pointer works a little different.
+it does not store a simple value directly. 
+Instead, a pointer stores a reference to anotheer value.
+
+pointer Dereference :
+this operation folllows a pointers reference to get the value of its pointee.
+
+NULL Pointer :
+basically it points to nothing.
+It turns out to be convenient to have a well defined pointer value which
+represents the idea that a pointer does not have a pointee.
+
+
+Pointer Assignment :
+basically this concepts shows us that assignment operation between two pointers
+makes them point to the same pointee which is said to be "sharing".
+
+Shallow And Deep Copying :
+sharing can enable communication between two functions. One function
+passes a pointer to the value of interest to another function. Both functions can access the
+value of interest, but the value of interest itself is not copied. This communication is
+called "shallow".
+since instead of making and sending a (large) copy of the value of
+interest, a (small) pointer is sent and the value of interest is shared.
+The alternative where a complete copy is made and sent is known as a "deep"
+copy. Deep copies are simpler in a way, since each function can change their copy
+without interfering with the other copy, but deep copies run slower because of all the
+copying.
+
+
+Pointer Type Syntax :
+int*    type:           pointer to int
+float*  type:           pointer to float
+struct  fraction* type: pointer to struct fraction
+struct  fraction** type:pointer to struct fraction*
+
+Pointer Variable :
+int* numPtr; // Declare the int* (pointer to int) variable "numPtr".
+// This allocates space for the pointer, but not the pointee.
+// The pointer starts out "bad"
+
+Bad Pointer :
+without the middle step where the pointers are assigned pointees. The bad code will
+compile fine, but at run-time, each dereference with a bad pointer will corrupt memory in
+some way.
+
+void BadPointer() {
+int* p; // allocate the pointer, but not the pointee
+*p = 42; // this dereference is a serious runtime error
+}
+// What happens at runtime when the bad pointer is dereferenced...
+
+
+Java :
+In
+Java, simple data types such as int and char operate just as in C. More complex types
+such as arrays and objects are automatically implemented using pointers. The language
+automatically uses pointers behind the scenes for such complex types, and no pointer
+specific syntax is required.
+
+Ex - 
+public void JavaShallow() {
+Foo a = new Foo(); // Create a Foo object (no * in the declaration)
+Foo b = new Foo(); // Create another Foo object
+b=a; // This is automatically a shallow assignment --
+// a and b now refer to the same object.
+a.Bar(); // This could just as well be written b.Bar();
+
+
+Implementation in the machine :
+ that every area of memory in the
+machine has a numeric address like 1000 or 20452. A pointer to an area of memory is
+really just an integer which is storing the address of that area of memory. The dereference
+operation looks at the address, and goes to that area of memory to retrieve the pointee
+stored there.
+
+Call Func By Ref :
+if we want to make some changes to local variable that we want to be appeared in other func
+thats where we can use this pointer usecase.Another
+reason to use reference parameters is to avoid making copies.
+
+Step:
+Passing By Reference
+Here are the steps to use in the code to use the pass-by-reference strategy...
+• Have a single copy of the value of interest. The single "master" copy.
+• Pass pointers to that value to any function which wants to see or change
+the value.
+• Functions can dereference their pointer to see or change the value of
+interest.
+• Functions must remember that they do not have their own local copies. If
+they dereference their pointer and change the value, they really are
+changing the master value. If a function wants a local copy to change
+safely, the function must explicitly allocate and initialize such a local
+copy.
+
+Example:
+
+// B() now uses a reference parameter -- a pointer to
+// the value of interest. B() uses a dereference (*) on the
+// reference parameter to get at the value of interest.
+void B(int* worthRef) { // reference parameter
+*worthRef = *worthRef + 1; // use * to get at value of interest
+// T2
+}
+void A() {
+int netWorth;
+netWorth = 55; // T1 -- the value of interest is local to A()
+B(&netWorth); // Pass a pointer to the value of interest.
+// In this case using &.
+// T3 -- B() has used its pointer to change the value of interest
+}
+
+
+Swap() Functions :
+Swap() Function
+The values of interest for Swap() are two ints. Therefore, Swap() does not take ints
+as its parameters. It takes a pointers to int — (int*)'s. In the body of Swap() the
+parameters, a and b, are dereferenced with * to get at the actual (int) values of interest.
+void Swap(int* a, int* b) {
+int temp;
+temp = *a;
+*a = *b;
+*b = temp;
+}
+
+
+Swap() Caller :
+
+To call Swap(), the caller must pass pointers to the values of interest...
+void SwapCaller() {
+int x = 1;
+int y = 2;
+Swap(&x, &y); // Use & to pass pointers to the int values of interest
+// (x and y).
+}
+
+
+Swap() With Array :
+
+The ints can be anywhere. An int inside an array is still an int.
+void SwapCaller2() {
+int scores[10];
+scores[0] = 1;
+scores[9[ = 2;
+Swap(&(scores[0]), &(scores[9]));// the ints of interest do not need to be
+// simple variables -- they can be any int. The caller is responsible
+// for computing a pointer to the int.
+
+The above call to Swap() can be written equivalently as Swap(scores, scores+9)
+
+The & Operator :
+The & bug happens when an & passes a
+pointer to local storage from the callee back to its caller. When the callee exits, its local
+memory is deallocated and so the pointer no longer has a pointee.
+
+Reference Parameter Summary :
+Passing by value (copying) does not allow the callee to communicate back to its caller
+and has also has the usual disadvantages of making copies. Pass by reference uses
+pointers to avoid copying the value of interest, and allow the callee to communicate back
+to the caller.
+
+In Heap memory :
+so whenever we want some fixed amount of memory we declare a pointer which is pointing to heap memory
+and tell the pointer to reserve these amounts of memory block.
+
+malloc()
+calloc()
+realloc()
+free()
+
+and whenever the task is completed we somply the free that heap memory bt free func.
+
+The heap block pointers are
+sometimes known as "base address" pointers since by convention they point to the base
+(lowest address byte) of the block.
+
+After the deallocation, the pointer continues to point to the now deallocated block. The
+program must not access the deallocated pointee.
+
+C Specifics :
+In the C language, the library functions which make heap requests are malloc() ("memory
+allocate") and free(). The prototypes for these functions are in the header file <stdlib.h>.
+
+void* malloc(unsigned long size); The malloc() function
+takes an unsigned integer which is the requested size of the block
+measured in bytes. Malloc() returns a pointer to a new heap block if the
+allocation is successful, and NULL if the request cannot be satisfied
+because the heap is full.
+
+
+Examples :
+
+1)
+void Heap1() {
+int* intPtr;
+// Allocates local pointer local variable (but not its pointee)
+
+2)
+// Allocates heap block and stores its pointer in local variable.
+// Dereferences the pointer to set the pointee to 42.
+intPtr = malloc(sizeof(int));
+*intPtr = 42;
+
+3)
+C can treat any pointer as an array. 
+The size of the array memory block is the size of each element
+
+// here is an example of pointer used in structure 
+
+void HeapArray() {
+struct fraction* fracts;
+int i;
+// allocate the array
+fracts = malloc(sizeof(struct fraction) * 100);
+// use it like an array -- in this case set them all to 22/7
+for (i=0; i<99; i++) {
+fracts[i].numerator = 22;
+fracts[i].denominator = 7;
+}
+// Deallocate the whole array
+free(fracts);
+}
+
+4)
+String Example :
+
+char* StringCopy(const char* string) {
+char* newString;
+int len;
+len = strlen(string) + 1; // +1 to account for the '\0'
+newString = malloc(sizeof(char)*len); // elem-size * number-of-elements
+assert(newString != NULL); // simplistic error check (a good habit)
+strcpy(newString, string); // copy the passed in string to the block
+return(newString); // return a ptr to the block
+}
+
+

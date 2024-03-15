@@ -1,0 +1,144 @@
+#Second task of Ex 1
+
+#memory allocation techniques available in C language
+
+There are two types of memory allocation is possible in c Lang.
+1)Static Memory Allocation
+2)Dynamic Memory Allocation
+
+1)Static Memory Allocation :
+
+static memory allocation is the allocation of memory for the data variables when the computer programs start. 
+This type of allocation is applied to only global variables, file scope variables and also to those variables that are declared as static. 
+This type of allocation is having a drawback when you are allocating memory we should know the exact memory before allocating as this 
+process allocates fixed memory and cannot be changed after allocating.
+
+2)Dynamic Memory Allocation :
+
+Dynamic memory allocation is allocation of memory during runtime or during program execution. 
+Dynamic memory allocation provides different functions in the C programming language. 
+They are: malloc(), calloc(), realloc(), free().
+
+1)malloc()
+This method allocates the space in the memory during execution 
+but will not initialize the memory allocation during execution as it carries garbage values and 
+if it cannot allocate requested memory then it returns a null pointer.
+
+Syntax :
+
+(CastType*) malloc(size);
+
+Example :
+
+mptr = (int*) malloc(100 * sizeof (int));
+
+In the above example, the statement allocates 400 bytes of memory because the int size in C is 4 bytes and 
+the variable mptr pointer holds the address of the first byte in the memory.
+
+2)calloc()
+This is also known as contiguous allocation. 
+As in malloc() will not initialize any memory bit. But in calloc() it allocates the memory along with initializing the bits to zero.
+
+Syntax :
+
+(CastType*) calloc(n, size)
+
+Example :
+
+cptr = (int*) calloc(35, sizeof (int));
+
+In this function, 
+the above example statement allocates contiguous memory space for about 35 elements of data type “int”.
+
+3)free()
+As discussed above the memory space should be freed or released if not in use. 
+In Dynamic memory allocation, malloc() and calloc() function only allocates memory 
+but cannot free the memory on their own so this is done using free() method explicitly to release the memory that is not in use to avoid memory leakage.
+
+Syntax :
+
+free (pointer_variable);
+
+Example :
+
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+int *p, *p1;
+int x, i;
+x = 5;
+printf("Enter number of elements to allocate in memory : %d\n", x);
+p = (int*)malloc(x * sizeof(int));
+p1 = (int*)calloc(x, sizeof(int));
+if (p == NULL || p1 == NULL) {
+printf("Memory is not allocated.\n");
+exit(0);
+}
+else {
+printf("Memory has been successfully allocated using malloc.\n");
+free(p);
+printf("Malloc Memory has been successfully freed or released.\n");
+printf("\nMemory has been successfully allocated using calloc.\n");
+free(p1);
+printf("Calloc Memory has been successfully freed or released.\n");
+}
+return 0;
+}
+
+4)realloc()
+As the name suggests, 
+in dynamic memory allocation if suppose a user wants to allocate more memory 
+which means more memory than specified or required by the program 
+then we can use this realloc() function to alter the size of memory that was allocated previously.
+
+Syntax :
+
+realloc (pointer_variable, n);
+
+Example :
+
+Suppose if we want to change the size of memory from 200 bytes to 600 bytes. Let us how it can be done using realloc().
+
+char *rptr;
+rptr = malloc(200 * sizeof(int));
+rptr = realloc(rptr, 600 * sizeof(int));
+
+
+#Difference between Static and Dynamic Memory Allocation in C
+
+Static Memory Allocation
+1	In the static memory allocation ,variables get allocated permanently, till the program executes or function call finishes.	
+2	Static Memory Allocation is done before program execution.	
+3	It uses stack for managing the static allocation of memory	
+4	It is less efficient	
+5	In Static Memory Allocation, there is no memory re-usability	
+6	In static memory allocation, once the memory is allocated, the memory size can not change.	
+7	In this memory allocation scheme, we cannot reuse the unused memory.	
+8	In this memory allocation scheme, execution is faster than dynamic memory allocation.	
+9	In this memory is allocated at compile time.	
+10	In this allocated memory remains from start to end of the program.	
+11	Example: This static memory allocation is generally used for array.	
+
+
+Dynamic Memory Allocation
+
+1 In the Dynamic memory allocation, variables get allocated only if your program unit gets active.
+2 Dynamic Memory Allocation is done during program execution.
+3 It uses heap for managing the dynamic allocation of memory
+4 It is more efficient
+5 In Dynamic Memory Allocation, there is memory re-usability and memory can be freed when not required
+6 In dynamic memory allocation, when memory is allocated the memory size can be changed.
+7 This allows reusing the memory. The user can allocate more memory when required. 
+  Also, the user can release the memory when the user needs it.
+8 In this memory allocation scheme, execution is slower than static memory allocation.
+9 In this memory is allocated at run time.
+10 In this allocated memory can be released at any time during the program.
+11 Example: This dynamic memory allocation is generally used for linked list.
+
+
+
+
+it is always user's responsibilities to take care of memory he has allocated should be free by end of the programe, 
+if he hasnt done this then circuimstances will elad that prog to memory leakage , 
+which further should be get solved with the help of valgrind tool.

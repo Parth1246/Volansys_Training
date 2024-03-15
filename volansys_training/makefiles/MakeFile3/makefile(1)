@@ -1,0 +1,39 @@
+# list of source,header and library files
+
+SOURCES := $(wildcard *.c)
+
+#this will include the header file from the current dir and from the  Extheader 
+INCLUDES = -I./  \
+		   -I ./ExtHeader
+
+#this provide the path of static library
+LIB = -L./ExtLib -lSample
+
+TARGET = out/final.out
+
+ODIR = build
+
+#compiler and compiler flag directives
+
+CC = gcc
+CFLAGS = -Wall -g -std=c99 -DDECORATE
+
+# OBJ files
+
+OBJS := $(patsubst %, $(ODIR)/% , $(SOURCES:.c=.o) )
+
+#rules for generating object and executable files
+
+$(ODIR)/%.o:%.c
+	$(CC) -c $(CFLAGS) $^ -o $@
+
+$(TARGET):$(OBJS)
+	$(CC) $^ $(LIB) -o $@
+
+
+.PHONY:clean
+clean:
+	rm -rf $(TARGET) build/*.o
+
+run: $(TARGET)
+	./$(TARGET)

@@ -1,0 +1,21 @@
+#memory organization in an executable program
+
+#Task 3 of Ex 1 (dsa)
+
+so here how the memory is allocated in different segment for an executable file 
+
+• Code segment or text segment: Code segment contains the code executable or code binary.
+• Data segment: Data segment is sub divided into two parts
+– Initialized data segment: All the global, static and constant data are stored in the data segment.
+– Uninitialized data segment: All the uninitialized data are stored in BSS.
+
+
+• Heap: When program allocate memory at runtime using calloc and malloc function, then memory gets
+allocated in heap. when some more memory need to be allocated using calloc and malloc function,
+heap grows upward as shown in above diagram.
+• Stack: Stack is used to store your local variables and is used for passing arguments to the functions
+along with the return address of the instruction which is to be executed after the function call is over.
+When a new stack frame needs to be added (as a result of a newly called function), the stack grows
+downward.
+
+

@@ -1,0 +1,27 @@
+
+
+main() {
+    chair = n; //number of chair = n
+    customer = 0; //initially there are 0 customer
+    barber = 1;  //barber is awake initially
+
+
+    if(customer == 0) {
+        barber = 0; //barber will sleep
+    }
+
+    else if(customer > 0 && chair == n) {
+        customer = n; //customer will go if chair is max n
+    }
+
+    else if(barber == 1 && chair != n) {
+        customer++;
+        chair++;  //if chair is not full then customer can come and grab the chair
+    }
+
+    else if(barber == 0 && customer == 1) {
+        barber = 1; //barber is sleeping but customer comes he will wake up
+    }
+
+    return 0;
+}

@@ -1,0 +1,19 @@
+user add 
+useradd -options username
+
+to give a home directorypath for new user
+sudo useradd -d /home/test_user test_user
+
+to creste a specific user with id
+sudo useradd -u 1234 test_user
+
+user with expiry date
+sudo useradd -e 2020-05-03 test_user
+
+with changed loginshells
+sudo useradd -s /bin/sh test_user
+
+to delete it
+sudo userdel -f username
+
+to change passsword

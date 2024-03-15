@@ -1,0 +1,11 @@
+struct node *create_list(void);
+struct node *delete_first(struct node *head);
+struct node *delete_last(struct node *head);
+struct node *deleteatindex(struct node *head, int index);
+struct node *deleteatkey(struct node *head, int *value);
+int delete_list(struct node *head);
+struct node *reverse_list(struct node *head);
+int reverse_list_rec(struct node *head);
+int *get_list_size(struct node *head, int *length);
+int length_list(struct node *head);
+int display(struct node *head);

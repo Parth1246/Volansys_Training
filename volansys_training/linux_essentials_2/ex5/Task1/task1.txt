@@ -1,0 +1,15 @@
+ans 1:
+
+IPC:
+IPC allow the processes to manage shared data. 
+Typically, applications can use IPC, categorized as clients and servers, 
+where the client requests data and the server responds to client requests.
+
+Requirements:
+IPC is very important to the design process for microkernels and nanokernels, 
+which reduce the number of functionalities provided by the kernel.
+
+DIff Mechanism:
+Linux supports three types of interprocess communication mechanisms 
+which first appeared in Unix System V (1983). 
+These are message queues, semaphores and shared memory.

@@ -1,0 +1,8 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/kaushal/kaushal.dekivadia_idp/Makefile/Exercise3'
+gcc -c -Wall -g -std=c99 -DDECORATE sampleAdd.c -o build/sampleAdd.o
+gcc -c -Wall -g -std=c99 -DDECORATE app.c -o build/app.o
+ 
+gcc build/sampleAdd.o build/app.o -L./ExtLib -lSample -o out/final.out
+make: Leaving directory '/home/kaushal/kaushal.dekivadia_idp/Makefile/Exercise3'
+ 

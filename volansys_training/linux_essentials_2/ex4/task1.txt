@@ -1,0 +1,14 @@
+ans1:
+Thread synchronization is defined as a mechanism 
+which ensures that two or more concurrent processes or threads 
+that do not simultaneously execute some particular program segment 
+that known as critical section. Processes' access to critical section 
+which is controlled by using synchronization techniques. 
+When one thread starts executing the critical section 
+(serialized segment of the program) 
+the other thread should wait until the first thread finishes.
+
+
+ans2:
+The three thread synchronization mechanisms used on Linux are 
+mutexes, barriers, and condvars.
